@@ -1,7 +1,12 @@
 <h2>Settings Updated Successfully!</h2>
-        <a href="/admin" style="margin-right: 10px;">
-          <button type="button">Back to Admin Settings</button>
-        </a>
-        <a href="/">
-          <button type="button">Back to Home</button>
-        </a>
+
+
+<div style="display: flex; gap: 15px; margin-top: 10px;">
+  <form action="/admin" method="get">
+    <button type="submit" style="font-size: 16px; padding: 8px 16px;">Back to Admin Settings</button>
+  </form>
+
+  <form action="/" method="get">
+    <button type="submit" style="font-size: 16px; padding: 8px 16px;">To Homepage</button>
+  </form>
+</div>
