@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Players</title>
+</head>
+<body>
+  <h1>All Players</h1>
+
+  {% for player in players %}
+    <div style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+      <strong>{{ player.name() }}</strong><br>
+      Castaways: {{ player.castaways() | join(', ') }}<br>
+      Winner Pick: {{ player.winner_pick() }}<br>
+
+        <form method="POST" action="/edit_merge_pickup">
+        <label><em>Merge Pick:</em></label>
+        <select name="merge_pick">
+            <option value="">None</option>
+            {% for name in castaway_names %}
+            <option value="{{ name }}" {% if name == player.merge_pickup() %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+        </select>
+        <input type="hidden" name="player_name" value="{{ player.name() }}">
+        <button type="submit">Update</button>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, msg in messages %}
+                    {% if category == player.name() + ' pickup'%}
+                        <span style="color: green; margin-left: 10px;">{{ msg }}</span>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        </form>
+
+        <form method="POST" action="/edit_merge_drop">
+            <label><em>Merge Drop:</em></label>
+            <select name="merge_drop">
+                <option value="">None</option>
+                {% for name in castaway_names %}
+                <option value="{{ name }}" {% if name == player.merge_drop() %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+            <input type="hidden" name="player_name" value="{{ player.name() }}">
+            <button type="submit">Update</button>
+    
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, msg in messages %}
+                        {% if category == player.name() + ' drop'%}
+                            <span style="color: green; margin-left: 10px;">{{ msg }}</span>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            </form>
+            
+      <form action="/delete_player" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete {{ player.name() }}?');">
+        <input type="hidden" name="player_name" value="{{ player.name() }}">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+  {% endfor %}
+
+  <form action="/create_player" method="get">
+    <button type="submit" style="font-size: 14px; padding: 8px 16px;">Add Player</button>
+  </form>
+
+<hr style="margin-top: 30px;">
+
+<div style="height: 10px;"></div>
+  <form action="/admin" method="get">
+    <button type="submit" style="font-size: 16px; padding: 8px 16px;">Back to Admin Settings</button>
+  </form>
+</body>
+</html>
