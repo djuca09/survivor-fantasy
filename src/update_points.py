@@ -13,9 +13,12 @@ def update_castaway_points(URL : str , castaways : list[src.castaway.Castaway]):
     # Parse the HTML with BeautifulSoup
     soup = BeautifulSoup(response.text, "html.parser")
     
-    # Find the image tag containing the points
-    img_tags = soup.find_all("img", class_=lambda c: c and "wp-image-" in c)  # Class specific to the points image
- 
+    # Get all weekly point images
+    img_tags = soup.find_all("img", class_=lambda c: c and "wp-image-" in c)
+
+    # Filter them by height to ignore point updates
+    img_tags = [img for img in img_tags if img.has_attr("height") and int(img["height"]) > 200]
+
     points_by_week = []
 
     for img in img_tags:
