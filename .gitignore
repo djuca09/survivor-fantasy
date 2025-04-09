@@ -1,0 +1,6 @@
+wsl-key.pem:Zone.Identifier
+wsl-key.pem
+*.swp
+my-key-pair.pem
+testing/
+archive/

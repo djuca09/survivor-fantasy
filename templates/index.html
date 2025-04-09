@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Survivor League</title>
+  </head>
+  <body>
+    <h1>Welcome to Elaha's Season {{ season }} Survivor Fantasy League!!!!</h1>
+    {% if players %}
+      <h2>Current Standings</h2>
+      <ol>
+        {% for player in players %}
+          <li>{{ player.name() }} - {{ player.points(castaway_dict) }} pts</li>
+        {% endfor %}
+      </ol>      
+    {% else %}
+      <p>No players yet!</p>
+    {% endif %} <br>
+
+    <form action="/admin_login" method="get" style="margin-top: 30px;">
+      <button type="submit">Admin Login</button>
+    </form>
+    
+  </body>
+</html>

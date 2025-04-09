@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Settings</title>
+</head>
+<body>
+  <h1>Admin Panel</h1>
+
+  <form method="POST" action="/update_settings">
+    <label for="season">Season Number:</label><br>
+    <input type="number" name="season" min="1" value="{{ season }}"><br><br>
+
+    <label for="points_url">Points URL:</label><br>
+    <input type="text" name="points_url" value="{{ points_url }}"><br><br>
+
+    <label for="merge_week">Merge Week:</label><br>
+    <input type="number" name="merge_week" min="1" value="{{ merge_week }}"><br><br>
+
+    <button type="submit" style="font-size: 14px; padding: 8px 12px;">Update Settings</button>
+  </form>
+
+  <hr style="margin: 20px 0;">
+
+
+  <div style="display: flex; gap: 15px; margin-top: 10px;">
+    <form action="/">
+        <button type="submit" style="font-size: 18px; padding: 10px 20px;">To Homepage</button>
+    </form>
+
+    <form action="/edit_players">
+        <button type="submit" style="font-size: 18px; padding: 10px 20px;">Edit Players</button>
+    </form>
+  </div>
+</body>
+</html>

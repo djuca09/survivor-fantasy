@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Elaha",
+    "castaway_names": [
+      "Aysha",
+      "Kyle",
+      "Rachel",
+      "Sam",
+      "Sol",
+      "Tiyana"
+    ],
+    "winner_pick": "Sam",
+    "merge_pickup": "",
+    "merge_drop": ""
+  },
+  {
+    "name": "Katie",
+    "castaway_names": [
+      "Andy",
+      "Aysha",
+      "Kyle",
+      "Rachel",
+      "Teeny",
+      "Tiyana"
+    ],
+    "winner_pick": "Aysha"
+  },
+  {
+    "name": "Nick",
+    "castaway_names": [
+      "Rachel",
+      "Rome",
+      "Sam",
+      "Sol",
+      "TK",
+      "Tiyana"
+    ],
+    "winner_pick": "TK",
+    "merge_pickup": "",
+    "merge_drop": ""
+  }
+]
