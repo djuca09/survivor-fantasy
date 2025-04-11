@@ -48,8 +48,14 @@ def write_players_file(new_players): #write changes to players file and update p
 @app.route('/')
 def home():
     return send_from_directory('dist', 'index.html')
+
+
 @app.route('/league_data')
 def league_data():
+
+    global castaway_dict
+    castaway_dict = castaway_lookup(points_url,season)
+    
     sorted_players = sorted(players, key=lambda p: p.points(castaway_dict), reverse=True)
 
     # Build response structure
