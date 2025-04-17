@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, send_from_directory
+from flask import Flask, render_template, request, redirect, flash, send_from_directory, session
 from src.make_castaways import castaway_lookup
 import json
 import os
@@ -66,7 +66,10 @@ def serve_react():
     return send_from_directory('dist', 'index.html')
 
 @app.route('/edit_players')
-def edit_players():    
+def edit_players():
+    if not session.get('admin_authenticated'):
+        flash('Please log in to access admin page.')
+        return redirect('/admin_login')    
     return render_template('edit_players.html', players=players , castaway_names = castaway_names)
 
 @app.route('/delete_player', methods=['POST'])
@@ -125,6 +128,9 @@ def submit_player():
 
 @app.route('/admin', methods=['GET'])
 def admin():
+    if not session.get('admin_authenticated'):
+        flash('Please log in to access admin page.')
+        return redirect('/admin_login')
     return render_template('admin.html', season = season, points_url = points_url, merge_week = merge_week)
 
 @app.route('/update_settings', methods=['POST'])
@@ -191,9 +197,14 @@ def edit_merge_drop():
 
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
+
+    if session.get('admin_authenticated'):
+        return redirect('/admin')
+
     if request.method == 'POST':
         password = request.form.get('password')
         if password == 'dostet daram Elaha':
+            session['admin_authenticated'] = True
             return redirect('/admin')
         else:
             flash('Incorrect password')
