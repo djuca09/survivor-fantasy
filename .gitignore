@@ -11,3 +11,4 @@ survivor-league.tar
 >>>>>>> b826da6f112e80a6db05cd18c43c352add04fca8
 build_and_deploy.sh
 data/s48/s48_players.json
+src/__pycache__/league_data.cpython-313.pyc
