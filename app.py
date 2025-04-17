@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, flash, send_from_directory, jsonify
+from flask import Flask, render_template, request, redirect, flash, send_from_directory
 from src.make_castaways import castaway_lookup
 import json
 import os
 from src.make_players import make_players
+from src.league_data import build_league_data
 
 app = Flask(__name__)
 
@@ -54,49 +55,11 @@ def home():
 def league_data():
 
     global castaway_dict
+
     castaway_dict = castaway_lookup(points_url,season)
     sorted_players = sorted(players, key=lambda p: p.points(castaway_dict), reverse=True)
 
-    # Build response structure
-
-    data = {
-        'season': season,
-        'players': [],
-        'castaways': {
-            name: castaway.get_total_points()  # Assuming castaway_dict[name] is a Castaway object with `.points`
-            for name, castaway in castaway_dict.items()
-        }
-    }
-
-    # For determing place
-    last_points = None
-    last_place = 0
-    actual_place = 0
-
-    # Find lowest point total (for last place detection)
-    lowest_points = sorted_players[-1].points(castaway_dict)
-
-    for player in sorted_players:
-        actual_place += 1
-        points = player.points(castaway_dict)
-
-        if points == lowest_points:
-            placement = 0
-        elif points != last_points:
-            last_place = actual_place
-            placement = last_place
-        else:
-            placement = last_place
-
-        last_points = points
-
-        data['players'].append({
-            'name': player.name(),
-            'points': points,
-            'place': placement
-        })
-
-    return jsonify(data)
+    return build_league_data(castaway_dict,sorted_players,season)
 
 @app.route('/home')
 def serve_react():
