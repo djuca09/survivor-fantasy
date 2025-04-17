@@ -1,17 +1,5 @@
 [
   {
-    "name": "Juca",
-    "castaway_names": [
-      "Cedrek",
-      "Joe",
-      "Kevin",
-      "Kyle",
-      "Mitch",
-      "Thomas"
-    ],
-    "winner_pick": "Kyle"
-  },
-  {
     "name": "Elaha",
     "castaway_names": [
       "Chrissy",
@@ -21,7 +9,8 @@
       "Mary",
       "Shauhin"
     ],
-    "winner_pick": "Mary"
+    "winner_pick": "Mary",
+    "merge_pickup": ""
   },
   {
     "name": "Nick",
@@ -33,7 +22,9 @@
       "Mary",
       "Shauhin"
     ],
-    "winner_pick": "Cedrek"
+    "winner_pick": "Cedrek",
+    "merge_pickup": "Kamilla",
+    "merge_drop": "Cedrek"
   },
   {
     "name": "Eman",
@@ -44,18 +35,6 @@
       "Kyle",
       "Mary",
       "Thomas"
-    ],
-    "winner_pick": "Eva"
-  },
-  {
-    "name": "Emily",
-    "castaway_names": [
-      "Charity",
-      "Chrissy",
-      "Eva",
-      "Joe",
-      "Justin",
-      "Kevin"
     ],
     "winner_pick": "Eva"
   },
@@ -84,30 +63,6 @@
     "winner_pick": "Kyle"
   },
   {
-    "name": "Noah",
-    "castaway_names": [
-      "Cedrek",
-      "Charity",
-      "Eva",
-      "Justin",
-      "Mitch",
-      "Shauhin"
-    ],
-    "winner_pick": "Shauhin"
-  },
-  {
-    "name": "Janelle",
-    "castaway_names": [
-      "Cedrek",
-      "Chrissy",
-      "David",
-      "Joe",
-      "Shauhin",
-      "Stephanie"
-    ],
-    "winner_pick": "Joe"
-  },
-  {
     "name": "Josh",
     "castaway_names": [
       "Bianca",
@@ -117,7 +72,8 @@
       "Thomas",
       "Stephanie"
     ],
-    "winner_pick": "Charity"
+    "winner_pick": "Charity",
+    "merge_pickup": "Star"
   },
   {
     "name": "Amy",
@@ -130,17 +86,5 @@
       "Stephanie"
     ],
     "winner_pick": "Thomas"
-  },
-  {
-    "name": "Elena",
-    "castaway_names": [
-      "Chrissy",
-      "Joe",
-      "Justin",
-      "Kyle",
-      "Shauhin",
-      "Stephanie"
-    ],
-    "winner_pick": "Shauhin"
   }
 ]
