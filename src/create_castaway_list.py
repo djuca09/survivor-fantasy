@@ -4,7 +4,7 @@ import json
 import os
 import re
 
-URL = "https://www.globaltv.com/survivor-49-fantasy-tribe/"
+URL = "https://www.globaltv.com/survivor-50-fantasy-tribe/"
 
 # Fetch the webpage
 response = requests.get(URL)
@@ -14,7 +14,7 @@ response.raise_for_status()  # Raise an error if the request fails
 soup = BeautifulSoup(response.text, "html.parser")
 
 # Find the image tag containing the points
-img_tag = soup.find("img", class_="wp-image-129982")
+img_tag = soup.find("img", class_="wp-image-130770")
 
 # Extract alt text and process names
 alt_text = img_tag.get("alt", "")
