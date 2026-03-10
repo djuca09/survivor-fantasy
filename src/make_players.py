@@ -17,7 +17,8 @@ def make_players(season_num: int , merge_week : int) -> list[Player]:
             winner_pick=p.get("winner_pick"),
             merge_pickup=p.get("merge_pickup"),
             merge_drop=p.get("merge_drop"),
-            merge_week= merge_week
+            merge_week= merge_week,
+            tribe_picks=p.get("tribe_picks")  # returns None if not present, so old seasons unaffected
         )
         players.append(player)
 

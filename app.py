@@ -4,6 +4,7 @@ import json
 import os
 from src.make_players import make_players
 from src.league_data import build_league_data
+from src.manual_points import save_manual_points
 
 app = Flask(__name__)
 
@@ -70,7 +71,11 @@ def edit_players():
     if not session.get('admin_authenticated'):
         flash('Please log in to access admin page.')
         return redirect('/admin_login')    
-    return render_template('edit_players.html', players=players , castaway_names = castaway_names)
+    return render_template('edit_players.html', players=players, castaway_names=castaway_names, season=season)
+
+@app.route('/create_player', methods=['GET'])
+def create_player():
+    return render_template('create_player.html', castaway_names=castaway_names, season=season)
 
 @app.route('/delete_player', methods=['POST'])
 def delete_player():
@@ -83,10 +88,6 @@ def delete_player():
     write_players_file(new_players)
 
     return redirect('/edit_players')
-
-@app.route('/create_player', methods=['GET'])
-def create_player():
-    return render_template('create_player.html', castaway_names=castaway_names)
 
 @app.route('/submit_player', methods=['POST'])
 def submit_player():
@@ -103,6 +104,8 @@ def submit_player():
     merge_pickup = request.form.get('merge_pick') or None
     merge_drop = request.form.get('merge_drop') or None
     merge_week = request.form.get('merge_week') or None
+    tribe_picks = request.form.getlist('tribe_picks')
+    tribe_picks = tribe_picks if tribe_picks else None
 
     #Prepare a dict version of the player for JSON
     player_data = {
@@ -118,6 +121,8 @@ def submit_player():
         player_data["merge_drop"] = merge_drop
     if merge_week:
         player_data["merge_week"] = int(merge_week)
+    if tribe_picks:
+        player_data["tribe_picks"] = tribe_picks
 
     #load file, add player, and save
     new_players = load_players_file()
@@ -194,6 +199,35 @@ def edit_merge_drop():
 
     flash(f"Merge drop updated!", category=f"{player_name} drop")
     return redirect('/edit_players')
+
+@app.route('/edit_castaways')
+def edit_castaways():
+    if not session.get('admin_authenticated'):
+        flash('Please log in to access admin page.')
+        return redirect('/admin_login')
+    
+    manual_path = f"data/s{season}/s{season}_manual_points.json"
+    if os.path.exists(manual_path):
+        with open(manual_path, "r") as f:
+            manual_points = json.load(f)
+    else:
+        manual_points = {}
+
+    return render_template('edit_castaways.html', castaway_names=castaway_names, manual_points=manual_points)
+
+@app.route('/save_manual_points', methods=['POST'])
+def save_manual_points_route():
+    if not session.get('admin_authenticated'):
+        return redirect('/admin_login')
+
+    castaway_name = request.form.get('castaway_name')
+    week = int(request.form.get('week'))
+    delta = int(request.form.get('delta'))
+
+    save_manual_points(season, castaway_name, week, delta)
+
+    flash(f"Updated!", category="manual_points")
+    return redirect('/edit_castaways')
 
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():

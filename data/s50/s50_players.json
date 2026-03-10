@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Juca",
+    "castaway_names": [
+      "Genevieve",
+      "Kyle"
+    ],
+    "winner_pick": "Angelina"
+  },
+  {
+    "name": "test",
+    "castaway_names": [
+      "Genevieve",
+      "Kyle",
+      "Q"
+    ],
+    "winner_pick": "Angelina",
+    "tribe_picks": [
+      "Q",
+      "",
+      ""
+    ]
+  }
+]

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Castaways</title>
+</head>
+<body>
+  <h1>Add/Remove Weekly Points</h1>
+
+  <h3>Current Adjustments</h3>
+  {% if manual_points %}
+    <table border="1" cellpadding="8">
+      <tr>
+        <th>Castaway</th>
+        <th>Week</th>
+        <th>Adjustment</th>
+      </tr>
+      {% for castaway, weeks in manual_points.items() %}
+        {% for week, delta in weeks.items() %}
+          <tr>
+            <td>{{ castaway }}</td>
+            <td>{{ week }}</td>
+            <td>{{ delta }}</td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>No adjustments yet.</p>
+  {% endif %}
+
+  <hr style="margin: 20px 0;">
+
+  <h3>Add/Update Adjustment</h3>
+  <form method="POST" action="/save_manual_points">
+    <label>Castaway:</label><br>
+    <select name="castaway_name">
+      {% for name in castaway_names %}
+        <option value="{{ name }}">{{ name }}</option>
+      {% endfor %}
+    </select><br><br>
+
+    <label>Week:</label><br>
+    <input type="number" name="week" min="1"><br><br>
+
+    <label>Point Adjustment:</label><br>
+    <input type="number" name="delta"><br><br>
+
+    <button type="submit">Update</button>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          {% if category == 'manual_points' %}
+            <span style="color: green; margin-left: 10px;">{{ msg }}</span>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </form>
+
+  <br>
+  <form action="/admin">
+    <button type="submit">Back to Admin</button>
+  </form>
+
+</body>
+</html>

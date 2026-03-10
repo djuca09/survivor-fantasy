@@ -1,7 +1,7 @@
 import src.castaway
 class Player():
     def __init__(self, name : str = "Frodo Baggins", castaway_names : list[str] = None, winner_pick : str = "Sauron",
-                merge_pickup : str = None, merge_drop : str = None, merge_week : int = None):
+            merge_pickup : str = None, merge_drop : str = None, merge_week : int = None, tribe_picks : list[str] = None):
 
         self.__name = name
         self.__castaway_names = castaway_names
@@ -9,6 +9,7 @@ class Player():
         self.__merge_pickup = merge_pickup
         self.__merge_drop = merge_drop
         self.__merge_week = merge_week
+        self.__tribe_picks = tribe_picks
 
     def points(self, castaway_lookup: dict[str,src.castaway.Castaway]) -> int:
 
@@ -16,8 +17,13 @@ class Player():
 
         for name in self.__castaway_names:
             
+            #Tribe picks (s50 only) - points from week 3 onwards
+            if name in (self.__tribe_picks or []):
+                total_points += (castaway_lookup.get(name)).get_merge_points(2, True)
+                if name == self.__merge_drop:
+                    total_points -= (castaway_lookup.get(name)).get_merge_points(self.__merge_week, True)
             #Check if dropped at merge
-            if name == self.__merge_drop:
+            elif name == self.__merge_drop:
                 total_points += (castaway_lookup.get(name)).get_merge_points(self.__merge_week, False)
             else:
                 total_points += (castaway_lookup.get(name)).get_total_points()
@@ -46,6 +52,9 @@ class Player():
     def merge_drop(self) -> str:
         return self.__merge_drop
     
+    def tribe_picks(self) -> list[str]:
+        return self.__tribe_picks
+
     def __str__(self) -> str:
         output = f"Player: {self.__name}\nCastaways: {', '.join(self.__castaway_names)}\nWinner Pick: {self.__winner_pick}"
         if self.__merge_pickup or self.__merge_drop or self.__merge_week is not None:
@@ -60,4 +69,3 @@ class Player():
             f"winner_pick={self.__winner_pick!r}, merge_pickup={self.__merge_pickup!r}, "
             f"merge_drop={self.__merge_drop!r}, merge_week={self.__merge_week!r})"
         )
-

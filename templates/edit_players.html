@@ -11,6 +11,9 @@
       <strong>{{ player.name() }}</strong><br>
       Castaways: {{ player.castaways() | join(', ') }}<br>
       Winner Pick: {{ player.winner_pick() }}<br>
+      {% if season|int == 50 and player.tribe_picks() %}
+        Week 3 Additions: {{ player.tribe_picks() | join(', ') }}<br>
+      {% endif %}
 
         <form method="POST" action="/edit_merge_pickup">
         <label><em>Merge Pick:</em></label>

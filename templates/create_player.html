@@ -15,7 +15,6 @@
       <input type="checkbox" name="castaways" value="{{ name }}"> {{ name }}<br>
     {% endfor %}
 
-
     <label>Pick a Winner:</label><br>
     <select name="winner" required>
       {% for name in castaway_names %}
@@ -38,6 +37,28 @@
         <option value="{{ name }}">{{ name }}</option>
       {% endfor %}
     </select><br><br>
+
+    {% if season|int == 50 %}
+    <label>Week 3 Additions (select 3):</label><br>
+    <select name="tribe_picks">
+      <option value="">-- None --</option>
+      {% for name in castaway_names %}
+        <option value="{{ name }}">{{ name }}</option>
+      {% endfor %}
+    </select><br>
+    <select name="tribe_picks">
+      <option value="">-- None --</option>
+      {% for name in castaway_names %}
+        <option value="{{ name }}">{{ name }}</option>
+      {% endfor %}
+    </select><br>
+    <select name="tribe_picks">
+      <option value="">-- None --</option>
+      {% for name in castaway_names %}
+        <option value="{{ name }}">{{ name }}</option>
+      {% endfor %}
+    </select><br><br>
+    {% endif %}
 
     <button type="submit">Create Player</button>
   </form>
